@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday!</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+    <script src="https://rawcdn.githack.com/blasten/turn.js/80a0673322442ed3b9e4a861d81f1857943d04d8/turn.min.js"></script>
 
     <style>
         body { background-color: #222; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
-        #album { width: 90vw; height: 80vh; max-width: 500px; } /* スマホ向けに横幅を制限 */
+        #album { width: 90vw; height: 80vh; max-width: 500px; }
         .page { width: 100%; height: 100%; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.5); overflow: hidden; position: relative; }
-        
-        /* 表紙のデザイン */
         .cover { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        
-        /* 最後のページ（写真ランダム配置） */
         .last-page { background: #fafafa; }
         .photo-collage { position: relative; width: 100%; height: 100%; }
         .photo-collage img { 
@@ -29,7 +25,6 @@
             text-align: center; color: #ff1493; font-weight: bold; font-size: 1.2rem;
             width: 80%; z-index: 100; pointer-events: none;
         }
-
         video { width: 100%; height: 100%; object-fit: contain; background: black; }
     </style>
 </head>
@@ -46,8 +41,7 @@
     </div>
 
     <div class="page last-page" id="photoPage">
-        <div class="photo-collage" id="collageContainer">
-            </div>
+        <div class="photo-collage" id="collageContainer"></div>
         <div class="message-overlay">
             Happy Birthday!<br>世界で一番幸せな1年を。
         </div>
@@ -56,11 +50,11 @@
 
 <script>
     $(document).ready(function() {
-        // 1. 写真をランダムに配置する処理
         const container = $('#collageContainer');
-        const photoCount = 11; // 写真の数
+        const photoCount = 11;
         for(let i=1; i<=photoCount; i++) {
-            const img = $('<img>').attr('src', `photo${i}.jpg`); // photo1.jpg 〜 photo12.jpgを用意
+            // ここを .jpeg に変更しました
+            const img = $('<img>').attr('src', `photo${i}.jpeg`); 
             const top = Math.random() * 80 + '%';
             const left = Math.random() * 70 + '%';
             const rotate = (Math.random() - 0.5) * 40 + 'deg';
@@ -68,10 +62,9 @@
             container.append(img);
         }
 
-        // 2. Turn.jsの初期化
         $("#album").turn({
             autoCenter: true,
-            display: 'single' // スマホは単一ページ表示がきれい
+            display: 'single'
         });
     });
 </script>
